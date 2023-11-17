@@ -1,1 +1,24 @@
-@forward 'variables';
+@use 'variables' as *;
+@forward 'buttons';
+
+:root {
+  --text-color-default: #{$text-color-default};
+  --text-color-light: #{$text-color-light};
+
+  --btn-color-bg: #{$btn-color-bg};
+  --btn-color-fg: #{$btn-color-fg};
+
+  --border-width: #{$border-width};
+  --border-style: #{$border-style};
+  --border-color: #{$border-color};
+  --border-default: #{$border-default};
+
+  --color-light: #{$color-light};
+  --color-normal: #{$color-normal};
+
+  --black: #{$black};
+  --white: #{$white};
+  --green: #{$green};
+
+  font-family: 'Open Sans', sans-serif;
+}

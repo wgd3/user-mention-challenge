@@ -1,2 +1,8 @@
 // using the theme from the shared library via the 'includePaths' property in project.json
-@use 'main';
+// @use 'variables' as v;
+@use 'main' as main;
+@use 'variables' as vars;
+
+hr {
+  border-top: 1px solid vars.$color-light;
+}

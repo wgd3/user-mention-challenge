@@ -1,0 +1,13 @@
+<div class="mention-menu">
+  @if (matchingUsers.length) {
+  <ul #mentionUserList>
+    @for (user of matchingUsers; track user.userID) {
+    <li (click)="selectUser(user)" (keydown)="onKeyDown($event)">
+      &#64;{{ user.name }}
+    </li>
+    }
+  </ul>
+  } @else {
+  <p>No matching users found</p>
+  }
+</div>

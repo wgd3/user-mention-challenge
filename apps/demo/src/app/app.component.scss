@@ -1,0 +1,58 @@
+@use 'variables' as vars;
+
+.section {
+  padding: vars.$space-lg 0;
+}
+
+.instruction-section {
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.actions-section {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.comments-section {
+  &__list {
+    list-style: none;
+    padding: 0;
+  }
+
+  &__list-item {
+    border: 1px solid transparent;
+    &:not(:first-child) {
+      border-top-color: vars.$border-color;
+    }
+  }
+  &__actions {
+    text-align: right;
+  }
+
+  .form {
+    position: relative;
+    margin: vars.$space-lg 0;
+    padding: 0 calc(vars.$space-lg * 3);
+  }
+
+  #new-comment-input {
+    border: vars.$border-default;
+    border-radius: 2px;
+    padding: vars.$space-md vars.$space-sm;
+
+    // "placeholder" text when empty and not in focus
+    &:empty:not(:focus)::before {
+      content: attr(data-placeholder);
+      color: vars.$color-light;
+    }
+  }
+
+  .new-comment-control {
+    width: 100%;
+  }
+}
