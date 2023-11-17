@@ -1,12 +1,20 @@
 import { filter, fromEvent, Subscription, take } from 'rxjs';
 
 import {
-    AfterViewInit, Component, ElementRef, EventEmitter, inject, OnDestroy, OnInit, Output,
-    Renderer2, ViewChild
+  AfterViewInit,
+  Component,
+  ElementRef,
+  EventEmitter,
+  inject,
+  OnDestroy,
+  OnInit,
+  Output,
+  Renderer2,
+  ViewChild,
 } from '@angular/core';
-import { IUser } from '@shared/data';
 
 import { MentionService } from '../mention.service';
+import { IUser } from '../user.interface';
 
 @Component({
   selector: 'um-mention-menu',

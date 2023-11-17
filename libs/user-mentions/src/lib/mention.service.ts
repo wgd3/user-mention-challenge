@@ -1,13 +1,15 @@
 import { BehaviorSubject, combineLatest, map, Observable, tap } from 'rxjs';
 
 import { inject, Injectable } from '@angular/core';
-import { IUser, UserService } from '@shared/data';
+
+import { USER_PROVIDER } from './tokens';
+import { IUser } from './user.interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MentionService {
-  private users$ = inject(UserService).users$;
+  private users$ = inject(USER_PROVIDER);
 
   private filter$$ = new BehaviorSubject<string | null>(null);
 

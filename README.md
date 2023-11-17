@@ -19,7 +19,7 @@
 
 **shared-styles** Contains some basic SCSS theming files
 
-**user-mention** library dedicated to the functionality of tagging users in a comment
+**user-mention** library dedicated to the functionality of tagging users in a comment. See the [README](libs/user-mentions/README.md) for the library to learn more about it.
 
 **apps-demo** demo application utilizing the above libraries
 

@@ -2,10 +2,14 @@ import { of } from 'rxjs';
 
 import { Component, Renderer2, Type } from '@angular/core';
 import { ComponentFixture, fakeAsync, tick } from '@angular/core/testing';
-import { createHostFactory, mockProvider, SpectatorHost } from '@ngneat/spectator/jest';
-import { DEFAULT_USERS, IUser } from '@shared/data';
+import {
+  createHostFactory,
+  mockProvider,
+  SpectatorHost,
+} from '@ngneat/spectator/jest';
 
 import { MentionService } from '../mention.service';
+import { IUser } from '../user.interface';
 import { MentionMenuComponent } from './mention-menu.component';
 
 @Component({
@@ -28,7 +32,12 @@ describe('MentionMenuComponent', () => {
     spectator = createHost(`<um-mention-menu></um-mention-menu>`, {
       providers: [
         mockProvider(MentionService, {
-          matchingUsers$: of(DEFAULT_USERS),
+          matchingUsers$: of([
+            { userID: 1, name: 'Kevin' },
+            { userID: 2, name: 'Jeff' },
+            { userID: 3, name: 'Bryan' },
+            { userID: 4, name: 'Gabbey' },
+          ]),
         }),
         // mockProvider(Renderer2, {
         //   addClass: jest.fn(),
@@ -49,7 +58,12 @@ describe('MentionMenuComponent', () => {
 
   it('should initialize and subscribe to matchingUsers$', fakeAsync(() => {
     tick();
-    expect(menuComponent.matchingUsers).toEqual(DEFAULT_USERS);
+    expect(menuComponent.matchingUsers).toEqual([
+      { userID: 1, name: 'Kevin' },
+      { userID: 2, name: 'Jeff' },
+      { userID: 3, name: 'Bryan' },
+      { userID: 4, name: 'Gabbey' },
+    ]);
   }));
 
   it('should grab focus for the menu on ArrowDown event', fakeAsync(() => {

@@ -3,12 +3,16 @@ import { of } from 'rxjs';
 import { Overlay } from '@angular/cdk/overlay';
 import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { createDirectiveFactory, mockProvider, SpectatorDirective } from '@ngneat/spectator/jest';
-import { DEFAULT_USERS, IUser } from '@shared/data';
+import {
+  createDirectiveFactory,
+  mockProvider,
+  SpectatorDirective,
+} from '@ngneat/spectator/jest';
 
 import { MentionMenuComponent } from './mention-menu/mention-menu.component';
 import { MentionUsersDirective } from './mention-users.directive';
 import { MentionService } from './mention.service';
+import { IUser } from './user.interface';
 
 @Component({
   template: `<div
@@ -39,7 +43,12 @@ describe('MentionUsersDirective', () => {
   ></div>`,
     providers: [
       mockProvider(MentionService, {
-        matchingUsers$: of(DEFAULT_USERS),
+        matchingUsers$: of([
+          { userID: 1, name: 'Kevin' },
+          { userID: 2, name: 'Jeff' },
+          { userID: 3, name: 'Bryan' },
+          { userID: 4, name: 'Gabbey' },
+        ]),
       }),
     ],
   });

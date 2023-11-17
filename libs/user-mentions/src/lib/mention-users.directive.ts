@@ -3,13 +3,20 @@ import { filter, Subject, Subscription, take, tap } from 'rxjs';
 import { Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import {
-    Directive, ElementRef, EventEmitter, HostListener, inject, Injector, OnDestroy, Output,
-    Renderer2
+  Directive,
+  ElementRef,
+  EventEmitter,
+  HostListener,
+  inject,
+  Injector,
+  OnDestroy,
+  Output,
+  Renderer2,
 } from '@angular/core';
-import { IUser } from '@shared/data';
 
 import { MentionMenuComponent } from './mention-menu/mention-menu.component';
 import { MentionService } from './mention.service';
+import { IUser } from './user.interface';
 
 interface IMenuPosition {
   top: number;
@@ -33,8 +40,16 @@ export class MentionUsersDirective implements OnDestroy {
 
   @Output() userMentioned = new EventEmitter<IUser>();
 
+  /**
+   * TODO: This directive only supports div elements that use the
+   * `contenteditable` attribute. This codebase should be updated
+   * to support input and textarea elements as well!
+   */
   @HostListener('input') onInput() {
-    const text = this.el.nativeElement.innerText;
+    const text =
+      this.el.nativeElement.type === 'textarea'
+        ? this.el.nativeElement.value
+        : this.el.nativeElement.innerText;
     const match = text.match(/(?:^|\s)@(\w*)$/);
     console.log(`[MentionUserDirection] match`, match);
     if (match) {
@@ -183,6 +198,15 @@ export class MentionUsersDirective implements OnDestroy {
     this.renderer.selectRootElement(this.el.nativeElement, true).focus();
   }
 
+  /**
+   * Method for programmatically updating the content of a div with
+   * a selected user.
+   *
+   * TODO: This method also needs to be refactored for input and textarea
+   * elements.
+   *
+   * @param username
+   */
   private insertUsername(username: string) {
     const commentElement = this.el.nativeElement;
     const elContent = commentElement.textContent;
