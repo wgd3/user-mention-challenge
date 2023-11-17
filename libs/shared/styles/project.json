@@ -1,0 +1,29 @@
+{
+  "name": "shared-styles",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/shared/styles/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/shared/styles",
+        "main": "libs/shared/styles/src/index.ts",
+        "tsConfig": "libs/shared/styles/tsconfig.lib.json",
+        "assets": []
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "libs/shared/styles/**/*.ts",
+          "libs/shared/styles/package.json"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

@@ -1,0 +1,23 @@
+$space-sm: 0.25rem;
+$space-md: 0.5rem;
+$space-lg: 0.75rem;
+$space-xl: 1rem;
+
+$text-color-default: rgb(21, 34, 50);
+$text-color-light: rgb(169, 169, 169);
+
+$btn-color-bg: rgb(231, 231, 231);
+$btn-color-fg: $text-color;
+
+$border-width: 1px;
+$border-style: solid;
+$border-color: rgb(223, 223, 223);
+$border-default: $border-width $border-stlye $border-color;
+
+$color-border: rgba(0, 0, 0, 0.15);
+$color-light: rgba(0, 0, 0, 0.25);
+$color-normal: rgba(0, 0, 0, 1);
+
+$white: rgb(255, 255, 255);
+$black: rgb(0, 0, 0);
+$green: rgb(0, 214, 100);
