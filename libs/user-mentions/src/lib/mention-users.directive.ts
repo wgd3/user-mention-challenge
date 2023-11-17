@@ -1,4 +1,4 @@
-import { filter, Subject, Subscription, take, tap } from 'rxjs';
+import { filter, Subject, Subscription, take } from 'rxjs';
 
 import { Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
@@ -103,15 +103,19 @@ export class MentionUsersDirective implements OnDestroy {
     this.teardownEvents.push(
       compRef.instance.userSelected
         .asObservable()
-        .pipe(
-          tap((selectedUser) => {
-            this.userMentioned.emit(selectedUser);
-            this.insertUsername(selectedUser.name);
-          })
-        )
-        .subscribe(() => {
+        .pipe
+        // tap((selectedUser) => {
+        //   this.userMentioned.emit(selectedUser);
+        // })
+        ()
+        .subscribe((selectedUser) => {
           this.closeMentionMenu();
           this.returnFocusToInput();
+
+          // IMPORTANT - to accomodate a bug/behavior related to safari
+          // and `window.getSelection` this method call must come
+          // _after_ focus has been returned to the contenteditable element
+          this.insertUsername(selectedUser.name);
         })
     );
   }
@@ -198,29 +202,28 @@ export class MentionUsersDirective implements OnDestroy {
       const cursorPosition = atSymbolPosition + 1;
 
       const selection = window.getSelection();
-      if (selection && selection.rangeCount > 0) {
+      // const range = selection?.getRangeAt(0);
+      console.dir(selection);
+      if (selection) {
         const range = selection.getRangeAt(0);
 
-        const position = range.startOffset;
         const anchorNode = selection.anchorNode;
-
-        const start = position - (cursorPosition - atSymbolPosition);
-        const end = position;
 
         if (anchorNode) {
           anchorNode.textContent =
-            elContent.substring(0, start) +
+            elContent.substring(0, atSymbolPosition) +
             `@${username}` +
-            elContent.substring(end, elContent.length);
+            elContent.substring(cursorPosition, elContent.length);
 
           // reset caret position to end of the line
-          range.setStart(anchorNode, start + 1 + username.length);
+          range.setStart(anchorNode, atSymbolPosition + 1 + username.length);
           range.collapse(true);
           console.log(range);
           selection.removeAllRanges();
           selection.addRange(range);
         }
       } else {
+        console.dir(selection);
         console.warn(`couldn't find selection`);
       }
     }

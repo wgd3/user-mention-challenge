@@ -5,6 +5,7 @@
   "prefix": "um",
   "tags": [],
   "projectType": "library",
+  "implicitDependencies": ["shared-styles"],
   "targets": {
     "test": {
       "executor": "@nx/jest:jest",

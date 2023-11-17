@@ -5,6 +5,7 @@
   "prefix": "umc",
   "sourceRoot": "apps/demo/src",
   "tags": [],
+  "implicitDependencies": ["shared-styles"],
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:application",

@@ -6,3 +6,8 @@
 hr {
   border-top: 1px solid vars.$color-light;
 }
+
+[contenteditable] {
+  -webkit-user-select: auto;
+  user-select: all;
+}
