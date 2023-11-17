@@ -1,6 +1,12 @@
 import { ContentObserver } from '@angular/cdk/observers';
 import {
-    Directive, ElementRef, forwardRef, HostListener, inject, OnInit, Renderer2
+  Directive,
+  ElementRef,
+  forwardRef,
+  HostListener,
+  inject,
+  OnInit,
+  Renderer2,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
@@ -30,7 +36,7 @@ export class ContentEditableControlValueAccessorDirective
   @HostListener('input')
   registerInputChange() {
     const newValue = this.elRef.nativeElement.innerText;
-    console.log(`Got a new value: ${newValue}`);
+    // console.log(`Got a new value: ${newValue}`);
     this.onChange(newValue);
   }
 
@@ -42,7 +48,7 @@ export class ContentEditableControlValueAccessorDirective
   @HostListener('change')
   registerValueChange() {
     const newValue = this.elRef.nativeElement.innerText;
-    console.log(`[value change] Got a new value: ${newValue}`);
+    // console.log(`[value change] Got a new value: ${newValue}`);
     this.onChange(newValue);
   }
 

@@ -26,7 +26,8 @@ export class HighlightUsersPipe implements PipeTransform {
         const matchedUser = users.find((u) => u.name === curr.slice(1));
         if (curr.startsWith('@') && matchedUser) {
           const userEl = `<span class="${className}">@${matchedUser.name}</span>`;
-          acc.push(this.sanitizer.bypassSecurityTrustHtml(userEl));
+          // acc.push(this.sanitizer.bypassSecurityTrustHtml(userEl));
+          acc.push(userEl);
         } else {
           acc.push(curr);
         }

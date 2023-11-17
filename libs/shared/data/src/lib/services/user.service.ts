@@ -11,6 +11,4 @@ import { IUser } from '../interfaces';
 export class UserService {
   private users$$ = new BehaviorSubject<IUser[]>([...DEFAULT_USERS]);
   users$ = this.users$$.asObservable();
-
-  constructor() {}
 }

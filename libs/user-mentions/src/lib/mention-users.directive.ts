@@ -1,4 +1,4 @@
-import { filter, Subject, Subscription, take } from 'rxjs';
+import { filter, Subject, Subscription, take, tap } from 'rxjs';
 
 import { Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
@@ -43,7 +43,7 @@ export class MentionUsersDirective implements OnDestroy {
   @HostListener('input') onInput() {
     const text = this.el.nativeElement.innerText;
     const match = text.match(/(?:^|\s)@(\w*)$/);
-
+    // console.log(`[MentionUserDirection] match`, match);
     if (match) {
       const searchString = match[1];
       this.mentionService.filterUsers(searchString);
@@ -53,8 +53,10 @@ export class MentionUsersDirective implements OnDestroy {
         this.openMentionMenu(menuPosition);
       }
     } else {
-      this.mentionService.filterUsers('');
-      this.closeMentionMenu();
+      if (this.overlayRef) {
+        this.mentionService.filterUsers('');
+        this.closeMentionMenu();
+      }
     }
   }
 
@@ -103,11 +105,11 @@ export class MentionUsersDirective implements OnDestroy {
     this.teardownEvents.push(
       compRef.instance.userSelected
         .asObservable()
-        .pipe
-        // tap((selectedUser) => {
-        //   this.userMentioned.emit(selectedUser);
-        // })
-        ()
+        .pipe(
+          tap((selectedUser) => {
+            this.userMentioned.emit(selectedUser);
+          })
+        )
         .subscribe((selectedUser) => {
           this.closeMentionMenu();
           this.returnFocusToInput();
@@ -194,26 +196,35 @@ export class MentionUsersDirective implements OnDestroy {
 
     // Find the position of the '@' symbol that triggered the menu
     const match = commentElement.innerText.match(/(?:^|\s)@(\w*)$/);
+    // console.log(`[MentionUserDirection :: insertUsername] match`, match);
 
     if (match) {
+      // index = caret position before matched group, adds count of characters to the last '@'
       const atSymbolPosition = match.index + match[0].lastIndexOf('@');
 
       // Set the cursor position to the end of the '@' symbol
       const cursorPosition = atSymbolPosition + 1;
 
+      // if a user searched while menu was open, this represents that
+      const searchTerm: string = match[1];
+
       const selection = window.getSelection();
-      // const range = selection?.getRangeAt(0);
-      console.dir(selection);
       if (selection) {
         const range = selection.getRangeAt(0);
 
         const anchorNode = selection.anchorNode;
 
         if (anchorNode) {
-          anchorNode.textContent =
-            elContent.substring(0, atSymbolPosition) +
-            `@${username}` +
-            elContent.substring(cursorPosition, elContent.length);
+          // all text prior to the '@' symbol that triggered the menu
+          const prefix = elContent.substring(0, atSymbolPosition);
+
+          // all text after the '@' trigger, excluding any search term that was used
+          const suffix = elContent.substring(
+            cursorPosition + searchTerm.length,
+            elContent.length
+          );
+
+          anchorNode.textContent = prefix + `@${username}` + suffix;
 
           // reset caret position to end of the line
           range.setStart(anchorNode, atSymbolPosition + 1 + username.length);

@@ -5,20 +5,32 @@
   border: 1px solid vars.$color-border;
   border-radius: 4px;
   box-shadow: 0 4px 4px 0;
-}
 
-ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-}
+  &__list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
 
-li {
-  cursor: pointer;
-  padding: 5px;
-}
+  &__list-item {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    border: vars.$border-width vars.$border-style transparent;
+    cursor: pointer;
+    padding: vars.$space-sm vars.$space-md;
 
-li:hover,
-.highlight {
-  background-color: #e0e0e0;
+    &:hover,
+    &.highlight {
+      background-color: #e0e0e0;
+    }
+
+    svg {
+      margin-inline-end: vars.$space-lg;
+    }
+  }
+
+  &__list-item + &__list-item {
+    border-top-color: vars.$border-color;
+  }
 }

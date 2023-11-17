@@ -39,6 +39,12 @@
   &__timestamp {
     flex: 0 0 auto;
   }
+
+  &__author,
+  &__text-separator,
+  &__timestamp {
+    color: vars.$text-color-light;
+  }
 }
 
 // usage of ng-deep isn't great, but it's the workaround for applying styles

@@ -1,4 +1,4 @@
-import { filter, from, fromEvent, Subscription, take, tap } from 'rxjs';
+import { filter, fromEvent, Subscription, take } from 'rxjs';
 
 import {
   AfterViewInit,
@@ -53,13 +53,17 @@ export class MentionMenuComponent implements OnInit, OnDestroy, AfterViewInit {
    * After init we want focus to remain on the input so a user can continue
    * typing. However, if a ArrowDown event is detected, grab the user focus and move
    * it to this component's list
+   *
+   * TODO: this works the first time - if a user changes focus outside
+   * the menu without closing the menu, they can keep typing but the
+   * observable has already ended
    */
   ngAfterViewInit(): void {
     fromEvent<KeyboardEvent>(document, 'keydown')
       .pipe(
-        tap((evt) => {
-          console.log(`keypress`, evt);
-        }),
+        // tap((evt) => {
+        //   console.log(`keypress`, evt);
+        // }),
         filter(
           (evt: KeyboardEvent) =>
             evt.type === 'keydown' &&
@@ -71,7 +75,7 @@ export class MentionMenuComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   private grabFocusForMenu() {
-    console.log(`grabbing menu focus`, this.mentionList);
+    // console.log(`grabbing menu focus`, this.mentionList);
     if (this.matchingUsers.length > 0 && this.mentionList) {
       console.log(`viewchild`, this.mentionList);
       this.renderer.setAttribute(

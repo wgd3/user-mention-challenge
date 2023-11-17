@@ -1,4 +1,4 @@
-import { BehaviorSubject, combineLatest, map, Observable } from 'rxjs';
+import { BehaviorSubject, combineLatest, map, Observable, tap } from 'rxjs';
 
 import { inject, Injectable } from '@angular/core';
 import { IUser, UserService } from '@shared/data';
@@ -15,6 +15,7 @@ export class MentionService {
     users: this.users$,
     filter: this.filter$$.asObservable(),
   }).pipe(
+    tap(({ users, filter }) => console.log({ users, filter })),
     // make the search case-insensitive
     map(({ users, filter }) =>
       filter
@@ -28,10 +29,11 @@ export class MentionService {
   );
 
   filterUsers(pattern: string) {
+    console.log(`[MentionService] filtering users with: ${pattern}`);
     if (!pattern.trim().length) {
-      this.filter$$.next(pattern);
-    } else {
       this.filter$$.next(null);
+    } else {
+      this.filter$$.next(pattern);
     }
   }
 }
