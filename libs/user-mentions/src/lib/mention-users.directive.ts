@@ -3,15 +3,8 @@ import { filter, Subject, Subscription, take, tap } from 'rxjs';
 import { Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import {
-  Directive,
-  ElementRef,
-  EventEmitter,
-  HostListener,
-  inject,
-  Injector,
-  OnDestroy,
-  Output,
-  Renderer2,
+    Directive, ElementRef, EventEmitter, HostListener, inject, Injector, OnDestroy, Output,
+    Renderer2
 } from '@angular/core';
 import { IUser } from '@shared/data';
 
@@ -43,7 +36,7 @@ export class MentionUsersDirective implements OnDestroy {
   @HostListener('input') onInput() {
     const text = this.el.nativeElement.innerText;
     const match = text.match(/(?:^|\s)@(\w*)$/);
-    // console.log(`[MentionUserDirection] match`, match);
+    console.log(`[MentionUserDirection] match`, match);
     if (match) {
       const searchString = match[1];
       this.mentionService.filterUsers(searchString);

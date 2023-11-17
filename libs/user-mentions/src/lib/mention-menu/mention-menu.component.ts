@@ -1,16 +1,8 @@
 import { filter, fromEvent, Subscription, take } from 'rxjs';
 
 import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  EventEmitter,
-  inject,
-  OnDestroy,
-  OnInit,
-  Output,
-  Renderer2,
-  ViewChild,
+    AfterViewInit, Component, ElementRef, EventEmitter, inject, OnDestroy, OnInit, Output,
+    Renderer2, ViewChild
 } from '@angular/core';
 import { IUser } from '@shared/data';
 
@@ -62,22 +54,23 @@ export class MentionMenuComponent implements OnInit, OnDestroy, AfterViewInit {
     fromEvent<KeyboardEvent>(document, 'keydown')
       .pipe(
         // tap((evt) => {
-        //   console.log(`keypress`, evt);
+        //   console.log(`keypress`, evt.type, evt.code, evt.key);
         // }),
         filter(
           (evt: KeyboardEvent) =>
-            evt.type === 'keydown' &&
-            ['ArrowDown', 'ArrowUp'].includes(evt.code)
+            evt.type === 'keydown' && ['ArrowDown', 'ArrowUp'].includes(evt.key)
         ),
         take(1)
       )
-      .subscribe(() => this.grabFocusForMenu());
+      .subscribe(() => {
+        this.grabFocusForMenu();
+      });
   }
 
   private grabFocusForMenu() {
     // console.log(`grabbing menu focus`, this.mentionList);
     if (this.matchingUsers.length > 0 && this.mentionList) {
-      console.log(`viewchild`, this.mentionList);
+      // console.log(`viewchild`, this.mentionList);
       this.renderer.setAttribute(
         this.mentionList.nativeElement.children[0],
         'tabindex',
