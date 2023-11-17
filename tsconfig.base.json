@@ -15,7 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@shared/styles": ["libs/shared/styles/src/index.ts"]
+      "@shared/styles": ["libs/shared/styles/src/index.ts"],
+      "@user-mentions": ["libs/user-mentions/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
