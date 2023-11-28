@@ -1,0 +1,77 @@
+/* You can add global styles to this file, and also import other style files */
+$space-sm: 0.25rem;
+$space-md: 0.5rem;
+$space-lg: 0.75rem;
+$space-xl: 1rem;
+
+$text-color-default: rgb(21, 34, 50);
+$text-color-light: rgb(169, 169, 169);
+
+$btn-color-bg: rgb(231, 231, 231);
+$btn-color-fg: $text-color-default;
+
+$border-width: 1px;
+$border-style: solid;
+$border-color: rgb(223, 223, 223);
+$border-default: $border-width $border-style $border-color;
+
+$color-border: rgba(0, 0, 0, 0.15);
+$color-light: rgba(0, 0, 0, 0.25);
+$color-normal: rgba(0, 0, 0, 1);
+
+$white: rgb(255, 255, 255);
+$black: rgb(0, 0, 0);
+$green: rgb(0, 214, 100);
+
+:root {
+  --text-color-default: #{$text-color-default};
+  --text-color-light: #{$text-color-light};
+
+  --btn-color-bg: #{$btn-color-bg};
+  --btn-color-fg: #{$btn-color-fg};
+
+  --border-width: #{$border-width};
+  --border-style: #{$border-style};
+  --border-color: #{$border-color};
+  --border-default: #{$border-default};
+
+  --color-light: #{$color-light};
+  --color-normal: #{$color-normal};
+
+  --black: #{$black};
+  --white: #{$white};
+  --green: #{$green};
+
+  font-family: 'Open Sans', sans-serif;
+}
+
+.btn-group {
+  > * + * {
+    margin-inline-start: $space-sm;
+  }
+}
+
+.btn {
+  padding: $space-sm $space-lg;
+  border-radius: 4px;
+  border: 1px solid transparent;
+  box-shadow: 0px 2px 2px 0px;
+}
+
+.icon-btn {
+  svg {
+    vertical-align: middle;
+    fill: currentColor;
+    width: $space-xl;
+    height: $space-xl;
+  }
+}
+
+hr {
+  border-top: 1px solid $color-light;
+}
+
+[contenteditable] {
+  -webkit-user-select: auto;
+  user-select: all;
+}

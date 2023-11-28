@@ -1,0 +1,196 @@
+$space-sm: 0.25rem;
+$space-md: 0.5rem;
+$space-lg: 0.75rem;
+$space-xl: 1rem;
+
+$text-color-default: rgb(21, 34, 50);
+$text-color-light: rgb(169, 169, 169);
+
+$btn-color-bg: rgb(231, 231, 231);
+$btn-color-fg: $text-color-default;
+
+$border-width: 1px;
+$border-style: solid;
+$border-color: rgb(223, 223, 223);
+$border-default: $border-width $border-style $border-color;
+
+$color-border: rgba(0, 0, 0, 0.15);
+$color-light: rgba(0, 0, 0, 0.25);
+$color-normal: rgba(0, 0, 0, 1);
+
+$white: rgb(255, 255, 255);
+$black: rgb(0, 0, 0);
+$green: rgb(0, 214, 100);
+
+.section {
+  padding: $space-lg 0;
+}
+
+.instruction-section {
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.actions-section {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.comments-section {
+  &__list {
+    list-style: none;
+    padding: 0;
+  }
+
+  &__list-item {
+    border: 1px solid transparent;
+    &:not(:first-child) {
+      border-top-color: $border-color;
+    }
+  }
+  &__actions {
+    text-align: right;
+  }
+
+  .form {
+    position: relative;
+    margin: $space-lg 0;
+    padding: 0 calc($space-lg * 3);
+  }
+
+  #new-comment-input {
+    border: $border-default;
+    border-radius: 2px;
+    padding: $space-md $space-sm;
+
+    // "placeholder" text when empty and not in focus
+    &:empty:not(:focus)::before {
+      content: attr(data-placeholder);
+      color: $color-light;
+    }
+  }
+
+  .new-comment-control {
+    width: 100%;
+  }
+}
+
+.comment {
+  display: flex;
+  align-items: center;
+  padding: $space-md 0;
+
+  &__icon {
+    flex: 0 0 auto;
+    padding: $space-sm;
+
+    svg {
+      vertical-align: middle;
+      fill: currentColor;
+      width: $space-xl;
+      height: $space-xl;
+    }
+  }
+
+  &__text {
+    flex: 1 1 auto;
+    padding: 0 $space-lg;
+
+    // handle truncating long text on smaller viewports
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__author {
+    flex: 0 0 auto;
+  }
+
+  &__text-separator {
+    flex: 0 0 auto;
+    padding: 0 $space-sm;
+  }
+
+  &__timestamp {
+    flex: 0 0 auto;
+  }
+
+  &__author,
+  &__text-separator,
+  &__timestamp {
+    color: $text-color-light;
+  }
+}
+
+// usage of ng-deep isn't great, but it's the workaround for applying styles
+// via a pipe passed to [innerHTML]
+::ng-deep .username-tag {
+  font-weight: bold;
+  text-decoration: none;
+  position: relative;
+
+  // I wanted to use this for a browser-native tooltip popover,
+  // but the DOMSanitizer limitations got in the way
+
+  // &::after {
+  //   position: absolute;
+  //   opacity: 0;
+  //   pointer-events: none;
+  //   content: attr(data-username);
+  //   left: 0;
+  //   top: calc(100% + 10px);
+  //   border-radius: 4px;
+  //   box-shadow: 0 0 5px 2px rgba(100, 100, 100, 0.6);
+  //   background-color: white;
+  //   z-index: 10;
+  //   padding: 8px;
+  //   width: 300px;
+  //   transform: translateY(-20px);
+  //   transition: all 150ms cubic-bezier(0.25, 0.8, 0.25, 1);
+  // }
+
+  // &:hover::after {
+  //   opacity: 1;
+  //   transform: translateY(0);
+  //   transition-duration: 300ms;
+  // }
+}
+
+.mention-menu {
+  background: $white;
+  border: 1px solid $color-border;
+  border-radius: 4px;
+  box-shadow: 0 4px 4px 0;
+
+  &__list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  &__list-item {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    border: $border-width $border-style transparent;
+    cursor: pointer;
+    padding: $space-sm $space-md;
+
+    &:hover,
+    &.highlight {
+      background-color: #e0e0e0;
+    }
+
+    svg {
+      margin-inline-end: $space-lg;
+    }
+  }
+
+  &__list-item + &__list-item {
+    border-top-color: $border-color;
+  }
+}
